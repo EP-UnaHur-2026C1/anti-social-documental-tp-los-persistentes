@@ -1,0 +1,26 @@
+services:
+  mongodb:
+    image: mongo:latest
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin1234
+    ports:
+      - 27017:27017
+    volumes:
+      - ./mongo_data:/data/db # Volumen persistente fuera del contenedor
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      ME_CONFIG_MONGODB_URL: mongodb://admin:admin1234@mongodb:27017/
+      ME_CONFIG_BASICAUTH: "false"
+
+  redis:
+    image: redis:8-alpine
+    ports:
+      - 6379:6379
+    volumes:
+      - ./redis_data:/data
+    command: redis-server --save 60 1 --loglevel warning
