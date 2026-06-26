@@ -35,12 +35,12 @@ const createPostSchema = Joi.object({
       'string.pattern.base': 'Cada tag debe ser un ObjectId válido.'
     }),
 
-  images: Joi.array() // defino el esquema de validación para el array de imágenes del post
-    .items(Joi.string().trim().pattern(objectIdPattern))
+  imageUrls: Joi.array()
+    .items(Joi.string().trim().uri())
     .optional()
     .messages({
-      'array.base': 'Las imágenes deben ser un array de ObjectIds.',
-      'string.pattern.base': 'Cada imagen debe ser un ObjectId válido.'
+      'array.base': 'Las URLs de las imágenes deben ser un array de textos.',
+      'string.uri': 'Cada imagen debe ser una URL válida (ej: https://...).'
     }),
 
   visible: Joi.boolean().optional()
@@ -67,16 +67,16 @@ const updatePostSchema = Joi.object({
       'string.pattern.base': 'Cada tag debe ser un ObjectId válido.'
     }),
 
-  images: Joi.array() // defino el esquema de validación para el array de imágenes del post
-    .items(Joi.string().trim().pattern(objectIdPattern))
+  imageUrls: Joi.array()
+    .items(Joi.string().trim().uri())
     .optional()
     .messages({
-      'array.base': 'Las imágenes deben ser un array de ObjectIds.',
-      'string.pattern.base': 'Cada imagen debe ser un ObjectId válido.'
+      'array.base': 'Las URLs de las imágenes deben ser un array de textos.',
+      'string.uri': 'Cada imagen debe ser una URL válida.'
     }),
 
   visible: Joi.boolean().optional() // defino el esquema de validación para el campo visible del post
-}).or('description', 'tags', 'images', 'visible');
+}).or('description', 'tags', 'imageUrls', 'visible');
 
 module.exports = { // exporto los esquemas de validación
   createPostSchema,

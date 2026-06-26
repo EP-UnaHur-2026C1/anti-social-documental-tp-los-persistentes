@@ -8,25 +8,25 @@ const {
 
 const router = Router();
 
-// Crear publicación (Ya estaba protegido, ¡perfecto!)
+// Crear publicación 
 router.post('/', validarCreacionPost, postControllers.crearPublicacion); 
 
 // Obtener todos los posts (Pasa directo, no necesita ID)
 router.get('/', postControllers.obtenerTodosLosPosts); 
 
-// 2. MODIFICADO: Validamos que el post exista antes de intentar traerlo
+// MODIFICADO: Validamos que el post exista antes de intentar traerlo
 router.get('/:idPost', validateExistePost, postControllers.obtenerPost); 
 
-// 3. MODIFICADO: Validamos que el post exista antes de intentar actualizarlo
+// MODIFICADO: Validamos que el post exista antes de intentar actualizarlo
 router.put('/:idPost', validateExistePost, postControllers.actualizarDescripcionPost); 
 
-// 4. MODIFICADO: Validamos que el post exista antes de borrarlo (evita borrar fantasmas)
+// MODIFICADO: Validamos que el post exista antes de borrarlo (evita borrar fantasmas)
 router.delete('/:idPost', validateExistePost, postControllers.eliminarPost); 
 
-// 5. MODIFICADO: Validamos que el post exista antes de intentar colgarle una imagen
+// MODIFICADO: Validamos que el post exista antes de intentar colgarle una imagen
 router.post('/:idPost/images', validateExistePost, postControllers.agregarImagen); 
 
-// 6. MODIFICADO: Validamos que al menos el post de origen exista
+// MODIFICADO: Validamos que al menos el post de origen exista
 router.delete('/:idPost/images/:idImage', validateExistePost, postControllers.eliminarImagen); 
 
 module.exports = router;

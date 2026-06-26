@@ -15,7 +15,6 @@ const tagSchema = new mongoose.Schema({ // defino el esquema de los tags
     }
 })
 
-
 const Tag = mongoose.model('Tag', tagSchema) // creo el modelo de los tags a partir del esquema definido
 
 module.exports = Tag; // exporto el modelo de los tags para poder usarlo en otros archivos

@@ -45,13 +45,13 @@ const validarSeguir = async (req, res, next) => {
   }
 };
 
-const validarUsuarioSeSigueASiMismo = async (req,res,next) => {
+const validarUsuarioSeSigueASiMismo = async (req, res, next) => {
   const { followerId, followingId } = req.params;
   if (followerId === followingId) { // si el usuario que intenta seguir es el mismo que el usuario a seguir, devuelvo un error 400 indicando que un usuario no puede seguirse a sí mismo
     return res.status(400).json({ message: 'Un usuario no puede seguirse a sí mismo.' });
   }
-  next()
-}
+  next();
+};
 
 const validarDejarDeSeguir = async (req, res, next) => {
   try {
@@ -74,8 +74,6 @@ const validarDejarDeSeguir = async (req, res, next) => {
     res.status(500).json({ message: "Error al validar la acción de dejar de seguir." });
   }
 };
-
-
 
 module.exports = { // exporto los middlewares de validación para poder usarlos en las rutas
     validarAmbosUsuariosExisten, 

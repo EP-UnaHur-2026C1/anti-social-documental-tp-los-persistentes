@@ -3,7 +3,7 @@ const ATRIBUTOS_EXCLUIDOS = ["updatedAt"];
 
 const redisClient = require("../../config/redisClient");
 
-// 1. CREAR USUARIO
+// CREAR USUARIO
 const crearUsuario = async (req, res) => {
   const { nickName, firstName, lastName, email, password } = req.body;
   try {
@@ -30,7 +30,7 @@ const crearUsuario = async (req, res) => {
   }
 };
 
-// 2. OBTENER TODOS LOS USUARIOS
+// OBTENER TODOS LOS USUARIOS
 const obtenerUsuarios = async (req, res) => {
   try {
     const usuarios = await User.find({}, { password: 0, updatedAt: 0, __v: 0 });
@@ -43,7 +43,7 @@ const obtenerUsuarios = async (req, res) => {
   }
 };
 
-// 3. OBTENER UN USUARIO POR ID (Con caché en Redis)
+// OBTENER UN USUARIO POR ID (Con caché en Redis)
 const obtenerUsuario = async (req, res) => {
   const { idUser } = req.params;
   const cacheKey = `user:${idUser}`;
@@ -76,7 +76,7 @@ const obtenerUsuario = async (req, res) => {
   }
 };
 
-// 4. ACTUALIZAR USUARIO
+// ACTUALIZAR USUARIO
 const actualizarUsuario = async (req, res) => {
   const { idUser } = req.params;
   const cacheKey = `user:${idUser}`;
@@ -98,7 +98,7 @@ const actualizarUsuario = async (req, res) => {
   }
 };
 
-// 5. ELIMINAR USUARIO
+// ELIMINAR USUARIO
 const eliminarUsuario = async (req, res) => {
   const { idUser } = req.params;
   const cacheKey = `user:${idUser}`;
