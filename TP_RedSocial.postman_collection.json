@@ -1,0 +1,682 @@
+{
+  "info": {
+    "_postman_id": "red-social-api-tp",
+    "name": "TP Red Social - API completa",
+    "description": "Coleccion completa para testing de la API REST.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. Usuarios",
+      "item": [
+        {
+          "name": "Crear Usuario 1 (juandev)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickName\": \"juandev\",\n  \"firstName\": \"Juan\",\n  \"lastName\": \"Perez\",\n  \"email\": \"juan@example.com\",\n  \"password\": \"secreto123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Crear Usuario 2 (maridev)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"nickName\": \"maridev\",\n  \"firstName\": \"Maria\",\n  \"lastName\": \"Garcia\",\n  \"email\": \"maria@example.com\",\n  \"password\": \"secreto123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Todos los Usuarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/user",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Usuario por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/user/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Usuario",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"firstName\": \"Juan Actualizado\",\n  \"lastName\": \"Garcia\",\n  \"email\": \"nuevo@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/user/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Usuario",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/user/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "user",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Publicaciones",
+      "item": [
+        {
+          "name": "Crear Post",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUser\": \"PONER_ID_USER_AQUI\",\n  \"description\": \"Esta es una publicacion de prueba con mas de diez caracteres.\",\n  \"imageUrls\": [\"https://example.com/imagen1.jpg\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/post",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "post"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Todos los Posts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/post",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "post"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Post por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/post/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "post",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Descripcion de Post",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Descripcion actualizada con mas de diez caracteres.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/post/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "post",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Agregar Imagenes a Post",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"imageUrls\": [\"https://example.com/imagen-nueva.jpg\"]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/post/PONER_ID_AQUI/images",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "post",
+                "PONER_ID_AQUI",
+                "images"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Imagen de Post",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/post/PONER_ID_POST/images/PONER_ID_IMAGE",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "post",
+                "PONER_ID_POST",
+                "images",
+                "PONER_ID_IMAGE"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Post",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/post/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "post",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Comentarios",
+      "item": [
+        {
+          "name": "Crear Comentario",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"idUser\": \"PONER_ID_USER_AQUI\",\n  \"idPost\": \"PONER_ID_POST_AQUI\",\n  \"content\": \"Este es un comentario de prueba.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/comment",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "comment"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Todos los Comentarios",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/comment",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "comment"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Comentario por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/comment/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "comment",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Comentario",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"content\": \"Comentario actualizado correctamente.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/comment/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "comment",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Comentario",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/comment/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "comment",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Etiquetas (Tags)",
+      "item": [
+        {
+          "name": "Crear Tag",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"tecnologia\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/tag",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "tag"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Todos los Tags",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/tag",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "tag"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Tag por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/tag/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "tag",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Actualizar Tag",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"programacion\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/tag/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "tag",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Asignar Tag a Post (MTM)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/tag/post/PONER_ID_POST/tag/PONER_ID_TAG",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "tag",
+                "post",
+                "PONER_ID_POST",
+                "tag",
+                "PONER_ID_TAG"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Quitar Tag de Post (MTM)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/tag/post/PONER_ID_POST/tag/PONER_ID_TAG",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "tag",
+                "post",
+                "PONER_ID_POST",
+                "tag",
+                "PONER_ID_TAG"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Eliminar Tag",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/tag/PONER_ID_AQUI",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "tag",
+                "PONER_ID_AQUI"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "5. Seguidores (Followers)",
+      "item": [
+        {
+          "name": "Seguir Usuario (Juan sigue a Maria)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/followers/PONER_ID_FOLLOWER/follow/PONER_ID_FOLLOWING",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "followers",
+                "PONER_ID_FOLLOWER",
+                "follow",
+                "PONER_ID_FOLLOWING"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Dejar de Seguir Usuario",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/followers/PONER_ID_FOLLOWER/unfollow/PONER_ID_FOLLOWING",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "followers",
+                "PONER_ID_FOLLOWER",
+                "unfollow",
+                "PONER_ID_FOLLOWING"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Seguidos (Followings)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/followers/PONER_ID_FOLLOWER/followings",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "followers",
+                "PONER_ID_FOLLOWER",
+                "followings"
+              ]
+            }
+          }
+        },
+        {
+          "name": "Obtener Seguidores (Followers)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/followers/PONER_ID_FOLLOWER/followers",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "followers",
+                "PONER_ID_FOLLOWER",
+                "followers"
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
