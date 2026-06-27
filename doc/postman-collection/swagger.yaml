@@ -1,0 +1,680 @@
+openapi: 3.0.0
+info:
+  title: AntiSocial-Relational-Api-Grupo8
+  version: "1.0.0"
+  description: API oficial para el MVP de la red social UnaHur Anti-Social Net. Documentación interactiva de endpoints.
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+  /user:
+    get:
+      summary: Obtener todos los usuarios
+      tags: [Users]
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+    post:
+      summary: Crear un nuevo usuario
+      tags: [Users]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserInput'
+      responses:
+        '201':
+          description: Usuario creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '409':
+          description: Usuario ya existe
+        '422':
+          description: Error de validación
+        '500':
+          description: Error interno del servidor
+
+  /user/{id}:
+    get:
+      summary: Obtener un usuario por ID
+      tags: [Users]
+      parameters:
+        - name: id
+          in: path
+          description: ID hexadecimal (ObjectId) del usuario
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Usuario no encontrado
+
+    put:
+      summary: Actualizar un usuario por ID
+      tags: [Users]
+      parameters:
+        - name: id
+          in: path
+          description: ID hexadecimal (ObjectId) del usuario
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: Usuario actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Usuario no encontrado
+        '422':
+          description: Error de validación
+
+    delete:
+      summary: Eliminar un usuario por ID
+      tags: [Users]
+      parameters:
+        - name: id
+          in: path
+          description: ID hexadecimal (ObjectId) del usuario a eliminar
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario eliminado
+        '404':
+          description: Usuario no encontrado
+  
+  /post:
+    get:
+      summary: Obtener todos los posts (Optimizado con Caché de Redis)
+      tags: [Posts]
+      responses:
+        '200':
+          description: Lista de posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Post'
+
+  /user/{id}/post:
+    post:
+      summary: Crear un nuevo post para un usuario
+      tags: [Posts]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario (ObjectId)
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostInput'
+      responses:
+        '201':
+          description: Post creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+
+  /post/{id}:
+    get:
+      summary: Obtener un post por ID
+      tags: [Posts]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Post encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+
+    put:
+      summary: Actualizar un post por ID
+      tags: [Posts]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostUpdate'
+      responses:
+        '200':
+          description: Post actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Post'
+
+    delete:
+      summary: Eliminar un post por ID
+      tags: [Posts]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Post eliminado
+
+  /post/{id}/imagenes:
+    post:
+      summary: Agregar imágenes a un post
+      tags: [Images]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ImageInput'
+      responses:
+        '201':
+          description: Imagen(es) agregada(s) exitosamente
+
+  /post/{id}/imagenes/{imageId}:
+    delete:
+      summary: Eliminar una imagen de un post
+      tags: [Images]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: imageId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Imagen eliminada
+
+  /post/{id}/etiquetas:
+    post:
+      summary: Asociar una etiqueta a un post
+      tags: [Tags]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagInput'
+      responses:
+        '201':
+          description: Etiqueta asociada exitosamente
+
+  /post/{id}/etiquetas/{tagId}:
+    delete:
+      summary: Eliminar una etiqueta de un post
+      tags: [Tags]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: tagId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Etiqueta eliminada
+
+  /post/{id}/comentarios:
+    post:
+      summary: Crear un comentario para un post
+      tags: [Comments]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del post (ObjectId)
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentInput'
+      responses:
+        '201':
+          description: Comentario creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+
+  /comment/{id}:
+    put:
+      summary: Actualizar un comentario por ID
+      tags: [Comments]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del comentario
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentUpdate'
+      responses:
+        '200':
+          description: Comentario actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        '404':
+          description: Comentario no encontrado
+
+    delete:
+      summary: Eliminar un comentario por ID
+      tags: [Comments]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Comentario eliminado
+          '404':
+            description: Comentario no encontrado
+  
+  /followers/{id}/follow/{followId}:
+    post:
+      summary: Seguir a un usuario
+      tags: [Followers]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario que sigue
+          schema:
+            type: string
+        - name: followId
+          in: path
+          required: true
+          description: ID del usuario a seguir
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Usuario seguido exitosamente
+        '404':
+          description: Usuario no encontrado
+
+  /followers/{id}/unfollow/{followId}:
+    delete:
+      summary: Dejar de seguir a un usuario
+      tags: [Followers]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario que deja de seguir
+          schema:
+            type: string
+        - name: followId
+          in: path
+          required: true
+          description: ID del usuario a dejar de seguir
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Usuario dejado de seguir exitosamente
+        '404':
+          description: Usuario no encontrado
+
+  /followers/{id}/followers:
+    get:
+      summary: Obtener lista de seguidores de un usuario
+      tags: [Followers]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de seguidores
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /followers/{id}/followings:
+    get:
+      summary: Obtener lista de usuarios que sigue un usuario
+      tags: [Followers]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del usuario
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista de usuarios seguidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+  /tag:
+    get:
+      summary: Obtener todas las etiquetas
+      tags: [Tags]
+      responses:
+        '200':
+          description: Lista de etiquetas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tag'
+
+    post:
+      summary: Crear una nueva etiqueta
+      tags: [Tags]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagInput'
+      responses:
+        '201':
+          description: Etiqueta creada exitosamente
+        '422':
+          description: Error de validación
+
+  /tag/{id}:
+    get:
+      summary: Obtener una etiqueta por ID
+      tags: [Tags]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Etiqueta encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Tag'
+        '404':
+          description: Etiqueta no encontrada
+
+    put:
+      summary: Actualizar una etiqueta por ID
+      tags: [Tags]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagInput'
+      responses:
+        '200':
+          description: Etiqueta actualizada
+        '404':
+          description: Etiqueta no encontrada
+        '422':
+          description: Error de validación
+
+    delete:
+      summary: Eliminar una etiqueta por ID
+      tags: [Tags]
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Etiqueta eliminada
+        '404':
+          description: Etiqueta no encontrada
+
+components:
+  schemas:
+    Tag:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "6a3e46fffad033326ace4511"
+        name:
+          type: string
+          example: "NODEJS"
+
+    TagInput:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          example: "NODEJS"
+
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "6a3e2c78198f95046ba2ea92"
+        nickName:
+          type: string
+          example: "SachS1"
+        email:
+          type: string
+          example: "emailfal1so123@gmail.com"
+        password:
+          type: string
+          example: "1235421"
+
+    UserInput:
+      type: object
+      required:
+        - nickName
+        - email
+        - password
+      properties:
+        nickName:
+          type: string
+          example: "SachS1"
+        email:
+          type: string
+          format: email
+          example: "emailfal1so123@gmail.com"
+        password:
+          type: string
+          example: "1235421"
+        firstname:
+          type: string
+          example: "Jose"
+        lastname:
+          type: string
+          example: "Fernandez"
+
+    UserUpdate:
+      type: object
+      properties:
+        nickName:
+          type: string
+          example: "SachS"
+        email:
+          type: string
+          format: email
+          example: "nuevoemail@gmail.com"
+        password:
+          type: string
+          example: "nuevo123"
+
+    Post:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "6a3e3edaaa55f4ce104eb13f"
+        idUser:
+          type: string
+          example: "6a3e2c78198f95046ba2ea92"
+        description:
+          type: string
+          example: "Publicación oficial de la red social"
+        createdAt:
+          type: string
+          format: date-time
+
+    PostInput:
+      type: object
+      required:
+        - idUser
+        - description
+      properties:
+        idUser:
+          type: string
+          example: "6a3e2c78198f95046ba2ea92"
+        description:
+          type: string
+          example: "Publicación de prueba para el TP"
+
+    PostUpdate:
+      type: object
+      properties:
+        description:
+          type: string
+
+    ImageInput:
+      type: object
+      required:
+        - imageUrls
+      properties:
+        imageUrls:
+          type: array
+          items:
+            type: string
+            format: uri
+
+    Comment:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "6a3e3eda198f95046ba2eb50"
+        idUser:
+          type: string
+          example: "6a3e2d8c198f95046ba2ea96"
+        content:
+          type: string
+          example: "Este es un gran comentario"
+        createdAt:
+          type: string
+          format: date-time
+
+    CommentInput:
+      type: object
+      required:
+        - idUser
+        - content
+      properties:
+        idUser:
+          type: string
+          example: "6a3e2d8c198f95046ba2ea96"
+        content:
+          type: string
+          example: "Este es un comentario de prueba"
+
+    CommentUpdate:
+      type: object
+      properties:
+        content:
+          type: string

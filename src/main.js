@@ -6,11 +6,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
 
-// COMENTAMOS SWAGGER TEMPORALMENTE PARA QUE NO CORTE EL ARRANQUE
-// const swaggerUi = require('swagger-ui-express');
-// const YAML = require('yamljs');
-// const swaggerDocument = YAML.load('./doc/swagger.yaml');
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// --- Configuración de Swagger (Documentación de la API) ---
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
+const path = require('path'); 
+
+const swaggerDocument = YAML.load(path.join(__dirname, '../doc/postman-collection/swagger.yaml'));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // --- Middlewares Globales ---
 app.use(express.json());
@@ -45,4 +47,5 @@ mongoose.connect(MONGO_URI)
 // Encendemos el servidor de Express
 app.listen(PORT, () => {
     console.log('Servidor corriendo de forma permanente en el puerto ' + PORT);
+    console.log('Documentación disponible en: http://localhost:' + PORT + '/api-docs');
 });
